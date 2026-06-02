@@ -1,0 +1,166 @@
+Penetration Testing Report
+
+Target Information
+
+Target IP: 10.129.41.251
+Environment: Windows Host (linux environment)
+Assessment Type: External Black-Box Penetration Test Simulation
+Testing Tools: Nmap, Gobuster, Responder, John the Ripper, Evil-WinRM
+
+1. Executive Summary
+
+The assessment of the target system (10.129.41.251) revealed multiple high-risk vulnerabilities leading to full system compromise. Initial reconnaissance exposed exposed web services and Windows management interfaces. Further enumeration enabled credential interception via NTLM relay/poisoning techniques, which was subsequently cracked to obtain valid administrator credentials.
+
+Using the compromised credentials, remote administrative access was successfully obtained via WinRM, resulting in full control of the system and retrieval of a sensitive user flag from the “mike” desktop.
+
+2. Scope of Engagement
+
+In-Scope
+Single host: 10.129.41.251
+Network services exposure
+Web application enumeration
+Credential capture via network poisoning simulation
+Privileged remote access validation
+
+Out-of-Scope
+Physical security
+Persistence mechanisms beyond session access
+Denial of Service testing
+3. Methodology
+
+The following methodology was applied:
+
+Reconnaissance & Port Scanning
+
+Full TCP scan
+Service version detection
+Web Enumeration
+Directory brute force enumeration
+Credential Harvesting
+LLMNR/NBT-NS poisoning simulation using Responder
+NTLMv2 hash capture
+Password Cracking
+Offline cracking using wordlist-based attack
+Privilege Access
+Remote execution via WinRM using recovered credentials
+
+4. Technical Findings
+
+4.1 Open Ports and Services
+Results from Nmap scan
+80/tcp: HTTP (Apache httpd 2.4.52, PHP 8.1.1 on Windows)
+5985/tcp: WinRM (Microsoft HTTPAPI 2.0)
+7680/tcp: Filtered/unknown service
+Security Impact
+WinRM exposed externally increases risk of remote administrative abuse
+Outdated or misconfigured web services increase attack surface
+
+Risk Rating: High
+
+4.2 Web Directory Enumeration
+
+Using Gobuster, multiple endpoints were identified:
+
+Key Findings
+/css/, /js/, /img/, /inc/ (accessible directories)
+/phpmyadmin (403 but exposed presence)
+/server-status, /server-info (restricted but disclosed)
+/cgi-bin/ (restricted access)
+/examples (503 response)
+Security Impact
+Exposure of administrative and diagnostic endpoints indicates poor web hardening
+Directory structure leakage assists attackers in further exploitation
+
+Risk Rating: Medium
+
+4.3 Credential Capture (LLMNR/NBT-NS Poisoning)
+
+Using Responder, NTLMv2 authentication attempts were captured:
+
+Captured Credential Hash
+Administrator::RESPONDER:3ced448e8c86cbbc:B2375D49D1DA000CD8D71753EBD64C73:010100000000...
+Observations
+The system responded to name resolution poisoning requests
+NTLM authentication was not protected against relay attacks
+Administrator account credentials were exposed via network broadcast weakness
+
+Risk Rating: Critical
+
+4.4 Password Cracking
+
+The captured NTLMv2 hash was processed using John the Ripper with a wordlist attack.
+
+Result
+Password recovered: badminton
+Security Impact
+Weak password policy enforcement
+Susceptibility to dictionary-based cracking attacks
+
+Risk Rating: High
+
+4.5 Remote Access via WinRM
+
+Using Evil-WinRM:
+
+Access Gained
+Username: administrator
+Password: badminton
+Access Type: Remote PowerShell session
+Results
+Successful authentication
+Access to system user directories
+Navigation to user mike desktop
+Retrieval of sensitive file:
+flag.txt → ea81b7afddd03efaa0945333ed147fac
+Security Impact
+Full administrative compromise of system
+Remote management interface exposed without MFA or IP restrictions
+
+Risk Rating: Critical
+
+5. Attack Chain Summary
+Port scan revealed HTTP + WinRM exposure
+Directory enumeration exposed web structure
+Responder captured NTLM authentication attempt
+Hash cracked using dictionary attack
+WinRM access gained using recovered credentials
+Post-exploitation enumeration led to user flag retrieval
+
+6. Risk Assessment Overview
+Component	Severity
+WinRM Exposure	Critical
+NTLM Relay Vulnerability	Critical
+Weak Password Policy	High
+Web Directory Exposure	Medium
+Service Fingerprinting Leakage	Medium
+
+7. Remediation Recommendations
+7.1 Network Security
+Disable LLMNR and NBT-NS
+Enforce SMB signing and NTLMv2 protection
+Restrict WinRM (5985) to internal networks only
+Implement firewall rules for management interfaces
+
+7.2 Authentication Hardening
+Enforce strong password policies (complexity + length)
+Implement account lockout policies
+Deploy MFA for administrative access
+
+7.3 Web Security
+Remove or restrict access to:
+/phpmyadmin
+/server-status
+/server-info
+Disable directory listing
+Harden Apache configuration
+
+7.4 Monitoring & Detection
+Enable logging for authentication attempts
+Deploy intrusion detection for NTLM relay attempts
+Monitor abnormal WinRM sessions
+
+8. Conclusion
+
+The system was fully compromised through a combination of network-level credential poisoning and weak authentication practices. The attack chain demonstrates a critical lack of defensive hardening, particularly in Windows authentication protocols and administrative service exposure.
+
+Immediate remediation is required to prevent similar compromise scenarios in production environments.

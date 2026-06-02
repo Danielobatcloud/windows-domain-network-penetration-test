@@ -1,0 +1,43 @@
+gobuster dir -u 10.129.41.251 -w /usr/share/wordlists/dirb/common.txt
+===============================================================
+Gobuster v3.8.2
+by OJ Reeves (@TheColonial) & Christian Mehlmauer (@firefart)
+===============================================================
+[+] Url:                     http://10.129.41.251
+[+] Method:                  GET
+[+] Threads:                 10
+[+] Wordlist:                /usr/share/wordlists/dirb/common.txt
+[+] Negative Status codes:   404
+[+] User Agent:              gobuster/3.8.2
+[+] Timeout:                 10s
+===============================================================
+Starting gobuster in directory enumeration mode
+===============================================================
+.hta                 (Status: 403) [Size: 302]
+.htaccess            (Status: 403) [Size: 302]
+.htpasswd            (Status: 403) [Size: 302]
+aux                  (Status: 403) [Size: 302]
+cgi-bin/             (Status: 403) [Size: 302]
+com2                 (Status: 403) [Size: 302]
+com1                 (Status: 403) [Size: 302]
+com3                 (Status: 403) [Size: 302]
+con                  (Status: 403) [Size: 302]
+css                  (Status: 301) [Size: 336] [--> http://10.129.41.251/css/]
+examples             (Status: 503) [Size: 402]
+inc                  (Status: 301) [Size: 336] [--> http://10.129.41.251/inc/]
+img                  (Status: 301) [Size: 336] [--> http://10.129.41.251/img/]
+index.php            (Status: 200) [Size: 61]
+js                   (Status: 301) [Size: 335] [--> http://10.129.41.251/js/]
+licenses             (Status: 403) [Size: 421]
+lpt1                 (Status: 403) [Size: 302]
+lpt2                 (Status: 403) [Size: 302]
+nul                  (Status: 403) [Size: 302]
+phpmyadmin           (Status: 403) [Size: 421]
+prn                  (Status: 403) [Size: 302]
+server-status        (Status: 403) [Size: 421]
+server-info          (Status: 403) [Size: 421]
+webalizer            (Status: 403) [Size: 421]
+Progress: 4613 / 4613 (100.00%)
+===============================================================
+Finished
+===============================================================
