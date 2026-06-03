@@ -1,0 +1,4 @@
+Target IP: 10.129.41.251
+Environment: Windows Host (linux environment)
+Assessment Type: External Black-Box Penetration Test Simulation
+Testing Tools: Nmap, Gobuster, Responder, John the Ripper, Evil-WinRM
