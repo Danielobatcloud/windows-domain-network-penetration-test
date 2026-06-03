@@ -2,3 +2,16 @@ Target IP: 10.129.41.251
 Environment: Windows Host (linux environment)
 Assessment Type: External Black-Box Penetration Test Simulation
 Testing Tools: Nmap, Gobuster, Responder, John the Ripper, Evil-WinRM
+Scope of Engagement
+
+In-Scope
+Single host: 10.129.41.251
+Network services exposure
+Web application enumeration
+Credential capture via network poisoning simulation
+Privileged remote access validation
+
+Out-of-Scope
+Physical security
+Persistence mechanisms beyond session access
+Denial of Service testing
